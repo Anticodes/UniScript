@@ -1,0 +1,3 @@
+setActiveScene = () =>
+  new FarmScene();
+  
