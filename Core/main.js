@@ -1,30 +1,36 @@
 const main = new p5((p) => {
   
   input = Input.getInstance();
-  activeScene = setActiveScene();
+  settings = Settings.getInstance();
+  activeScene = settings.setActiveScene();
   
-  setup = () => {
-    p.createCanvas(1200, 1200);
+  p.setup = () => {
+    p.createCanvas(settings.width, settings.height);
     p.noStroke();
+    if(settings.isTransformAnchorCenter)
+      p.rectMode(p.CENTER);
     this.activeScene.loadScene();
   }
   
-  draw = () => {
-    p.background(0);
-    translate(600, 600);
+  p.draw = () => {
+    Input.getInstance().update();
+    Time.getInstance().update();
+    p.translate(settings.width/2, settings.height/2);
+    p.translate(this.activeScene.mainCamera.transform.position.x, this.activeScene.mainCamera.transform.position.y)
     this.activeScene.updateScene();
-    translate(-600, -600);
+    p.translate(-this.activeScene.mainCamera.transform.position.x, -this.activeScene.mainCamera.transform.position.y)
+    p.translate(-settings.width/2, -settings.height/2);
   }
   
-  mousePressed = () => {
+  p.mousePressed = () => {
     this.input.mPress();
   }
   
-  mouseDragged = () => {
+  p.mouseDragged = () => {
     this.input.mDrag();
   }
   
-  mouseReleased = () => {
+  p.mouseReleased = () => {
     this.input.mRel();
   }
   

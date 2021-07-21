@@ -7,7 +7,7 @@ class GameObject{
   components;
   
   
-  constructor(name, children){
+  constructor({name, children, position, scale, rotation}={}){
     this.components = [];
     this.childs = [];
     children && children.forEach(child => {
@@ -16,17 +16,17 @@ class GameObject{
     });
     this.name = name;
     this.parent = null;
-    this.transform = new Transform(0, 0);
+    this.transform = new Transform({position: position, scale: scale, rotation: rotation});
     this.addComponent(this.transform);
   }
   
   start(){
-    this.components.forEach(comp => comp.start())
+    this.components.forEach(comp => comp._start())
     this.childs.forEach(child => child.start())
   }
   
   update(){
-    this.components.forEach(comp => comp.update())
+    this.components.forEach(comp => comp._update())
   }
   
   setParent(gameObject){

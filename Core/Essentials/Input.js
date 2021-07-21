@@ -37,7 +37,6 @@ var Input = (function() {
     getInstance: function() {
       if (instance == null) {
         instance = new InputClass();
-        // Hide the constructor so the returned object can't be new'd...
         instance.constructor = null;
       }
       return instance;

@@ -1,12 +1,12 @@
 var Time = (function() {
   class TimeClass {
     
-    lastTime;
-    deltaTime;
+    lastTime = 0.0;
+    deltaTime = 0.0;
     
     update() {
-      deltaTime = (Date.now() - lastTime)/1000;
-      lastTime = Date.now();
+      this.deltaTime = (main.millis() - this.lastTime)/1000.0;
+      this.lastTime = main.millis();
     }
   }
   var instance;
@@ -14,7 +14,6 @@ var Time = (function() {
     getInstance: function() {
       if (instance == null) {
         instance = new TimeClass();
-        // Hide the constructor so the returned object can't be new'd...
         instance.constructor = null;
       }
       return instance;

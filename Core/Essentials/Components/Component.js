@@ -10,6 +10,12 @@ class Component {
     this.transform = null;
   }
   
+  _start(){
+    this.start();
+  }
+  _update(){
+    this.update();
+  }
   start(){}
   update(){}
   

@@ -1,16 +1,17 @@
 class BunnyController extends Component{
   
-  time;
+  timer = 0;
+  time = Time.getInstance();
   
   start(){
     this.state = this.states.IDLE;
   }
   
   update(){
-    this.time += Time.deltaTime;
-    if(this.time >= 3)this.state = this.states.WANDERING;
-    if(this.time >= 8)this.state = this.states.IDLE;
-    
+    this.timer += this.time.deltaTime;
+    if(this.timer >= 3)this.state = this.states.WANDERING;
+    if(this.timer >= 8)this.state = this.states.IDLE;
+    this.stateMovement();
   }
   
   stateMovement(){
@@ -18,8 +19,9 @@ class BunnyController extends Component{
       case this.states.IDLE:
         break;
       case this.states.WANDERING:
-        this.transform.rotation += Math.random()/50-.01
-        this.transform.position.add(this.transform.position.heading());
+        this.transform.rotation += Math.random()/50-.01;
+        console.log();
+        this.transform.position.add(p5.Vector.fromAngle(this.transform.rotation));
         break;
       case this.states.RUNNING:
         break;
