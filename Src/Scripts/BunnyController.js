@@ -1,26 +1,20 @@
 class BunnyController extends Component{
   
   input = Input.getInstance();
-  runCompletion = 0;
+  time = Time.getInstance();
+  timer = null;
+  turnCompletion = null;
   
   start(){
-    this.state = this.states.IDLE;
+    this.setState(this.states.IDLE);
   }
   
   update(){
     if(input.pressing){
       if(this.state == this.states.IDLE)
-        this.state = this.states.WANDERING;
+        this.setState(this.states.WANDERING);
       else if(this.state == this.states.WANDERING)
-        this.state = this.states.IDLE;
-    }
-    if(this.state != this.states.RUNNING
-    &&(this.transform.position.x > main.windowWidth/2-100
-    || this.transform.position.x < -(main.windowWidth/2-100)
-    || this.transform.position.y < -(main.windowHeight/2-100)
-    || this.transform.position.y > main.windowHeight/2-100)){
-      this.state = this.states.RUNNING;
-      this.runCompletion = 0;
+        this.setState(this.states.IDLE);
     }
     this.stateMovement();
   }
@@ -30,27 +24,64 @@ class BunnyController extends Component{
       case this.states.IDLE:
         break;
       case this.states.WANDERING:
-        this.transform.rotation += Math.random()/50-.01;
-        main.text(this.transform.position.toString(), -100, -100);
-        this.transform.position.add(p5.Vector.fromAngle(this.transform.rotation));
+        this.timer = 1;
+        this.setState(this.states.WANDERING.JUMPING);
+        break;
+      case this.states.WANDERING.JUMPING:
+        this.timer -= this.time.deltaTime;
+        let angle = main.map(this.timer, 0, 1, 0, main.PI);
+        this.transform.scale.set(5 + main.sin(angle)*2, 5 + main.sin(angle)*2);
+        this.transform.position.add(p5.Vector.fromAngle(this.transform.rotation).mult(this.time.deltaTime*100));
+        if(this.timer <= 0){
+          this.setState(this.states.WANDERING.DECIDING);
+          this.transform.scale.set(5, 5)
+        }
+        break;
+      case this.states.WANDERING.DECIDING:
+        if (this.transform.position.x > main.windowWidth / 2 - 50 ||
+            this.transform.position.x < -(main.windowWidth / 2 - 50) ||
+            this.transform.position.y < -(main.windowHeight / 2 - 50) ||
+            this.transform.position.y > main.windowHeight / 2 - 50) {
+          this.setState(this.states.WANDERING.RETURNING);
+          this.turnCompletion = main.PI;
+        }else{
+          this.turnCompletion = Math.random()*main.PI - main.HALF_PI
+          this.setState(this.states.WANDERING.LOOKING);
+        }
+        break;
+      case this.states.WANDERING.LOOKING:
+        this.turnCompletion -= 0.05;
+        this.transform.rotation += 0.05;
+        if(this.turnCompletion <= 0){
+          this.setState(this.states.WANDERING);
+        }
+        break;
+      case this.states.WANDERING.RETURNING:
+        this.transform.rotation += 0.05
+        this.turnCompletion -= 0.05;
+        if(this.turnCompletion <= 0)
+          this.setState(this.states.WANDERING);
         break;
       case this.states.RUNNING:
-        this.transform.rotation += 0.01;
-        this.runCompletion += 0.01;
-        this.transform.position.add(p5.Vector.fromAngle(-this.transform.rotation));
-        if(this.runCompletion >= main.PI){
-          this.state = this.states.WANDERING;
-        }
         break;
       case this.states.EATING:
         break;
     }
   }
   
+  setState(state){
+    this.state = state;
+  }
+  
   states = {
     IDLE: 0,
-    WANDERING: 1,
+    WANDERING: {
+      JUMPING: 1.1,
+      DECIDING: 1.2,
+      LOOKING: 1.3,
+      RETURNING: 1.4,
+    },
     RUNNING: 2,
-    EATING: 3
+    EATING: 3,
   }
 }

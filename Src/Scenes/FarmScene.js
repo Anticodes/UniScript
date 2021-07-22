@@ -2,9 +2,9 @@ class FarmScene extends Scene {
 
   hierarchy() {
     this.gameObjects.push(this.mainCamera = new Camera("Main Camera"));
-    this.gameObjects.push(new BunnyPrefab({
+    for(let i = 0; i < 10; i++)this.gameObjects.push(new BunnyPrefab({
       name: "Bunny",
-      scale: main.createVector(10, 10),
+      scale: main.createVector(5, 5),
     }));
   }
 }

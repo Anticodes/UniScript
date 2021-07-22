@@ -1,4 +1,4 @@
-class BunnyRenderer extends QuadRenderer{
+class BunnyRenderer extends CircleRenderer{
 
     constructor(color){
         super(color);
@@ -6,8 +6,12 @@ class BunnyRenderer extends QuadRenderer{
 
     update(){
         super.update();
+        main.push();
         main.stroke(255);
-        main.line(0, 0, 10, 0);
-        main.noStroke();
+        main.line(4, -2, -1, -6);
+        main.line(4,  2, -1,  6);
+        main.fill(255);
+        main.ellipse(-4, 0, 1, 1);
+        main.pop();
     }
 }
