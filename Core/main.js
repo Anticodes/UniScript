@@ -1,5 +1,6 @@
 const main = new p5((p) => {
   
+  p.disableFriendlyErrors = true;
   input = Input.getInstance();
   settings = null;
   activeScene = null;
@@ -25,8 +26,8 @@ const main = new p5((p) => {
     p.translate(settings.width/2, settings.height/2);
     p.translate(this.activeScene.mainCamera.transform.position.x, this.activeScene.mainCamera.transform.position.y)
     this.activeScene.updateScene();
-    p.translate(-this.activeScene.mainCamera.transform.position.x, -this.activeScene.mainCamera.transform.position.y)
-    p.translate(-settings.width/2, -settings.height/2);
+    //p.translate(-this.activeScene.mainCamera.transform.position.x, -this.activeScene.mainCamera.transform.position.y)
+    //p.translate(-settings.width/2, -settings.height/2);
   }
   
   p.mousePressed = () => {

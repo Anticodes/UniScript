@@ -2,16 +2,16 @@ class BunnyRenderer extends CircleRenderer{
 
     constructor(color){
         super(color);
+        
     }
 
     update(){
         super.update();
         main.push();
-        main.stroke(255);
-        main.line(4, -2, -1, -6);
-        main.line(4,  2, -1,  6);
-        main.fill(255);
-        main.ellipse(-4, 0, 1, 1);
+        main.fill(255)
+        main.triangle(4, -2, -3, -5, -2, -6);
+        main.triangle(4,  2, -3,  5, -2,  6);
+        main.ellipse(-4, 0, 2, 2);
         main.pop();
     }
 }

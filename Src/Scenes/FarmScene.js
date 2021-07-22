@@ -7,7 +7,7 @@ class FarmScene extends Scene {
     this.mainCamera.addComponent(new BunnySpawner());
     this.addGameObject(new BunnyPrefab({
       name: "Bunny",
-      scale: main.createVector(5, 5),
+      scale: main.createVector(10, 10),
     }));
     this.addUIObject(new Text({
       name: "InfoText",
