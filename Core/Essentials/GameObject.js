@@ -27,6 +27,7 @@ class GameObject{
   
   update(){
     this.components.forEach(comp => comp._update())
+    this.childs.forEach(child => child.update());
   }
   
   setParent(gameObject){
@@ -36,6 +37,7 @@ class GameObject{
   
   addChild(gameObject){
     this.childs.push(gameObject);
+    child.start();
   }
   
   addComponent(component){

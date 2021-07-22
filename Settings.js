@@ -5,7 +5,7 @@ var Settings = (function() {
     width = main.windowWidth;
     height = main.windowHeight;
     isTransformAnchorCenter = true;
-    setActiveScene = () => new FarmScene();
+    activeScene = new FarmScene();
 
     //Do not touch the rest
   }

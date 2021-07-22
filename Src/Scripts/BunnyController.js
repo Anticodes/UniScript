@@ -6,16 +6,10 @@ class BunnyController extends Component{
   turnCompletion = null;
   
   start(){
-    this.setState(this.states.IDLE);
+    this.setState(this.states.WANDERING);
   }
   
   update(){
-    if(input.pressing){
-      if(this.state == this.states.IDLE)
-        this.setState(this.states.WANDERING);
-      else if(this.state == this.states.WANDERING)
-        this.setState(this.states.IDLE);
-    }
     this.stateMovement();
   }
   
@@ -45,14 +39,14 @@ class BunnyController extends Component{
           this.setState(this.states.WANDERING.RETURNING);
           this.turnCompletion = main.PI;
         }else{
-          this.turnCompletion = Math.random()*main.PI - main.HALF_PI
+          this.turnCompletion = Math.random()*main.PI - main.HALF_PI;
           this.setState(this.states.WANDERING.LOOKING);
         }
         break;
       case this.states.WANDERING.LOOKING:
-        this.turnCompletion -= 0.05;
-        this.transform.rotation += 0.05;
-        if(this.turnCompletion <= 0){
+        this.turnCompletion += this.turnCompletion < 0 ? 0.05 : -0.05;
+        this.transform.rotation += this.turnCompletion < 0 ? 0.05 : -0.05;
+        if(this.turnCompletion < 0.03 && this.turnCompletion > -0.03){
           this.setState(this.states.WANDERING);
         }
         break;

@@ -1,0 +1,1 @@
+class UIObject extends GameObject{}

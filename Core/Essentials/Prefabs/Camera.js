@@ -1,6 +1,6 @@
 class Camera extends GameObject {
 
-    constructor(name, children) {
-        super(name, children);
+    constructor({name, children}={}) {
+        super({name: name, children: children});
     }
 }

@@ -6,14 +6,16 @@ const main = new p5((p) => {
   
   p.setup = () => {
     settings = Settings.getInstance();
-    activeScene = settings.setActiveScene();
+    activeScene = settings.activeScene;
     console.log(settings.width, settings.height);
     const cnv = p.createCanvas(settings.width, settings.height);
     //cnv.style('display', 'block');
     cnv.position(0, 0);
     p.noStroke();
-    if(settings.isTransformAnchorCenter)
+    if(settings.isTransformAnchorCenter){
       p.rectMode(p.CENTER);
+      p.textAlign(p.CENTER);
+    }
     this.activeScene.loadScene();
   }
   

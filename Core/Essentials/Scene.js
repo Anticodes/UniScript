@@ -1,24 +1,30 @@
 class Scene{
   
   gameObjects = [];
+  uiObjects = [];
   mainCamera;
   
   loadScene(){
     console.log('Loading the scene');
     this.hierarchy();
-    this.gameObjects.forEach(gameObject => gameObject.start())
   }
   
   hierarchy(){}
   
   updateScene(){
     main.background(135, 206, 235);
-    this.gameObjects.forEach(gameObject => gameObject.update())
+    this.gameObjects.forEach(gameObject => gameObject.update());
+    this.uiObjects.forEach(uiObject => uiObject.update());
   }
   
-  addGameObject(gameObject, parent){
+  addGameObject(gameObject){
     this.gameObjects.push(gameObject);
-    gameObject.setParent(parent);
+    gameObject.start();
+  }
+
+  addUIObject(uiObject){
+    this.uiObjects.push(uiObject);
+    uiObject.start();
   }
 
   setCamera(camera){
