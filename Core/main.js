@@ -1,11 +1,16 @@
 const main = new p5((p) => {
   
   input = Input.getInstance();
-  settings = Settings.getInstance();
-  activeScene = settings.setActiveScene();
+  settings = null;
+  activeScene = null;
   
   p.setup = () => {
-    p.createCanvas(settings.width, settings.height);
+    settings = Settings.getInstance();
+    activeScene = settings.setActiveScene();
+    console.log(settings.width, settings.height);
+    const cnv = p.createCanvas(settings.width, settings.height);
+    //cnv.style('display', 'block');
+    cnv.position(0, 0);
     p.noStroke();
     if(settings.isTransformAnchorCenter)
       p.rectMode(p.CENTER);

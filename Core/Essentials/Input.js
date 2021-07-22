@@ -1,5 +1,6 @@
 var Input = (function() {
   class InputClass {
+    pressing = false;
     buttons = [];
   
     addButton(pos, scale, text) {
@@ -11,11 +12,13 @@ var Input = (function() {
     }
   
     update() {
+      this.mouse = main.createVector(main.mouseX, main.mouseY);
       for (button in this.buttons)
         button.update();
     }
   
     mPress() {
+      this.pressing = true;
       for (button in this.buttons)
         button.mPress();
     }
@@ -24,6 +27,7 @@ var Input = (function() {
     }
   
     mRel() {
+      this.pressing = false;
       for (button in this.buttons)
         button.mRel();
     }

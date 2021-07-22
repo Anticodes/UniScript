@@ -2,8 +2,8 @@ var Settings = (function() {
   class SettingsClass {
 
     //Only change these values
-    width = 1280;
-    height = 720;
+    width = main.windowWidth;
+    height = main.windowHeight;
     isTransformAnchorCenter = true;
     setActiveScene = () => new FarmScene();
 
