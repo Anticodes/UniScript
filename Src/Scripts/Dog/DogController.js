@@ -1,13 +1,18 @@
-class BunnyController extends Component{
+class DogController extends Component{
   
   input = Input.getInstance();
   time = Time.getInstance();
   timer = null;
   turnCompletion = null;
+  shadow = null;
+  prevPos = null;
+  firstScale = null;
   
   start(){
     this.setState(this.states.FALLING);
     this.timer = 0.5;
+    this.shadow = this.gameObject.getComponent("DogShadowRenderer");
+    this.firstScale = this.transform.scale.copy();
   }
   
   update(){
@@ -15,29 +20,33 @@ class BunnyController extends Component{
   }
   
   stateMovement(){
-    let angle;
+    let angle, curve;
     switch(this.state){
       case this.states.IDLE:
         break;
       case this.states.WANDERING.INIT:
         this.timer = 1;
-        this.setState(this.states.WANDERING.JUMPING);
+        this.prevPos = this.transform.position.copy();
+        this.setState(this.states.WANDERING.RUNNING);
         break;
-      case this.states.WANDERING.JUMPING:
+      case this.states.WANDERING.RUNNING:
         this.timer -= this.time.deltaTime;
-        angle = main.map(this.timer, 0, 1, 0, main.PI);
-        this.transform.scale.set(5 + main.sin(angle)*2, 5 + main.sin(angle)*2);
+        angle = main.map(this.timer, 0, 1, 0, main.PI*5);
+        curve = main.sin(angle)/2 ;
+        this.transform.scale.set(this.firstScale.x + (curve > 0 ? curve : 0), this.firstScale.y + (curve > 0 ? curve : 0));
+        this.shadow.offset.set(1 + (curve > 0 ? curve/2 : 0), 1 + (curve > 0 ? curve/2 : 0));
         this.transform.position.add(p5.Vector.fromAngle(this.transform.rotation).mult(this.time.deltaTime*100));
         if(this.timer <= 0){
           this.setState(this.states.WANDERING.DECIDING);
-          this.transform.scale.set(5, 5)
+          this.transform.scale.set(this.firstScale.x, this.firstScale.y);
+          this.shadow.offset.set(1, 1);
         }
         break;
       case this.states.WANDERING.DECIDING:
-        if (this.transform.position.x > main.windowWidth / 2 - 25 ||
-            this.transform.position.x < -(main.windowWidth / 2 - 25) ||
-            this.transform.position.y < -(main.windowHeight / 2 - 25) ||
-            this.transform.position.y > main.windowHeight / 2 - 25) {
+        if (this.transform.position.x < 125 ||
+            this.transform.position.x > (main.windowWidth - 125) ||
+            this.transform.position.y > (main.windowHeight - 125) ||
+            this.transform.position.y < 125) {
           this.setState(this.states.WANDERING.RETURNING);
           this.turnCompletion = main.PI;
         }else{
@@ -60,11 +69,11 @@ class BunnyController extends Component{
         break;
       case this.states.FALLING:
         angle = main.map(this.timer, 0, 1, 0, main.HALF_PI);
-        this.transform.scale.set(5 + main.sin(angle)*5, 5 + main.sin(angle)*5);
+        this.transform.scale.set(this.firstScale.x + main.sin(angle)*5, this.firstScale.y + main.sin(angle)*5);
         this.timer -= this.time.deltaTime;
         if(this.timer <= 0){
           this.setState(this.states.WANDERING.INIT);
-          this.transform.scale.set(5, 5);
+          this.transform.scale.set(this.firstScale.x, this.firstScale.y);
         }
         break;
       case this.states.EATING:
@@ -80,7 +89,7 @@ class BunnyController extends Component{
     IDLE: 0,
     WANDERING: {
       INIT: 1.0,
-      JUMPING: 1.1,
+      RUNNING: 1.1,
       DECIDING: 1.2,
       LOOKING: 1.3,
       RETURNING: 1.4,

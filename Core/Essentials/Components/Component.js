@@ -14,7 +14,8 @@ class Component {
     this.start();
   }
   _update(){
-    this.update();
+    if(this.isActive)
+      this.update();
   }
   start(){}
   update(){}
