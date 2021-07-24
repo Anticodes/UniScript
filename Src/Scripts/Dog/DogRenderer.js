@@ -15,7 +15,7 @@ class DogRenderer extends QuadRenderer {
         main.scale(1/this.transform.scale.x, 1/this.transform.scale.y);
         main.push();
         main.scale(this.transform.scale.x, this.transform.scale.x);
-        main.fill(255);
+        main.fill(187, 140, 83);
         main.push();
         main.translate(2, -1.5);
         main.rotate(-.2);

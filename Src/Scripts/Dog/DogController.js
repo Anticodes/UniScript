@@ -43,10 +43,10 @@ class DogController extends Component{
         }
         break;
       case this.states.WANDERING.DECIDING:
-        if (this.transform.position.x < 125 ||
-            this.transform.position.x > (main.windowWidth - 125) ||
-            this.transform.position.y > (main.windowHeight - 125) ||
-            this.transform.position.y < 125) {
+        if (this.transform.position.x < 150 ||
+            this.transform.position.x > (main.windowWidth - 150) ||
+            this.transform.position.y > (main.windowHeight - 150) ||
+            this.transform.position.y < 150) {
           this.setState(this.states.WANDERING.RETURNING);
           this.turnCompletion = main.PI;
         }else{
