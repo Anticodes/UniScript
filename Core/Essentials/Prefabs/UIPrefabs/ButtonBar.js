@@ -1,6 +1,7 @@
 class ButtonBar extends UIObject {
 
     selectedColor = null;
+    input = Input.getInstance();
 
     constructor({ name, children, position, scale, rotation, backgroundColor, selectedColor } = {}) {
         super({ name: name, children: children, position: position, scale: scale, rotation: rotation });
@@ -38,8 +39,17 @@ class ButtonBar extends UIObject {
     }
 
     mPress(){
-        let index = this.childs.findIndex(button => button.mPress());
-        this.selectedButton = index > -1 ? index : this.selectedButton;
+      let index = this.childs.findIndex(button => button.mPress());
+      this.selectedButton = index > -1 ? index : this.selectedButton;
+      let pos = this.getParentPositions();
+      let sca = this.transform.scale;
+      if (pos.x - sca.x * 10 < this.input.mouse.x &&
+        pos.x + sca.x * 10 > this.input.mouse.x &&
+        pos.y - sca.y * 10 < this.input.mouse.y &&
+        pos.y + sca.y * 10 > this.input.mouse.y) {
+        return true;
+      }
+      return false;
     }
 
     mRel(){}

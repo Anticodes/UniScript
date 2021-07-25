@@ -34,6 +34,14 @@ class FarmScene extends Scene {
               3, 3, 3, 3,
             ],
           }),
+          new Button({
+            name: "Cat Button",
+            scale: main.createVector(10, 5),
+            text: "🐱 Kedi",
+            border: [
+              3, 3, 3, 3,
+            ],
+          }),
         ]
       }))
     );

@@ -13,9 +13,8 @@ var Input = (function() {
     }
   
     mPress() {
-      this.pressing = true;
-      console.log(this.mouse.x, this.mouse.y);
-      this.elements.forEach(element => element.mPress())
+      let found = this.elements.find(element => element.mPress());
+      this.pressing = (found == null);
     }
   
     mDrag() {

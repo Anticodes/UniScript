@@ -28,10 +28,9 @@ class Button extends UIObject {
             pos.y - sca.y * 5 < this.input.mouse.y &&
             pos.y + sca.y * 5 > this.input.mouse.y) {
             this.pressing = true;
-            this.input.pressing = false;
             if (this.callback != null) this.callback();
-            return this.pressing;
         }
+        return this.pressing;
     }
 
     mRel() {

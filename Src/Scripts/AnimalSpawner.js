@@ -24,6 +24,14 @@ class AnimalSpawner extends Component {
                     scale: main.createVector(16, 5),
                     rotation: Math.random()*main.PI,
                 }));
+                break;
+                case 2: this.settings.activeScene.instantiate(new CatPrefab({
+                  name: "Cat",
+                  position: main.createVector(this.input.mouse.x, this.input.mouse.y),
+                  scale: main.createVector(9, 3),
+                  rotation: Math.random() * main.PI,
+                }));
+                break;
             }
             this.input.pressing = false;
         }
