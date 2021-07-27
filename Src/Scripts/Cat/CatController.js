@@ -32,7 +32,7 @@ class CatController extends Component {
       case this.states.WANDERING.RUNNING:
         this.timer -= this.time.deltaTime;
         angle = main.map(this.timer, 0, 1, 0, main.PI * 2);
-        curve = main.sin(angle) / 2;
+        curve = main.sin(angle) / 4;
         this.transform.scale.set(this.firstScale.x + (curve > 0 ? curve : -curve), this.firstScale.y + (curve > 0 ? curve : -curve));
         this.shadow.offset.set(1 + (curve > 0 ? curve / 2 : -curve / 2), 1 + (curve > 0 ? curve / 2 : -curve / 2));
         this.transform.position.add(p5.Vector.fromAngle(this.transform.rotation).mult(this.time.deltaTime * 50));

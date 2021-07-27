@@ -31,10 +31,10 @@ class DogController extends Component{
         break;
       case this.states.WANDERING.RUNNING:
         this.timer -= this.time.deltaTime;
-        angle = main.map(this.timer, 0, 1, 0, main.PI*5);
-        curve = main.sin(angle)/2 ;
-        this.transform.scale.set(this.firstScale.x + (curve > 0 ? curve : 0), this.firstScale.y + (curve > 0 ? curve : 0));
-        this.shadow.offset.set(1 + (curve > 0 ? curve/2 : 0), 1 + (curve > 0 ? curve/2 : 0));
+        angle = main.map(this.timer, 0, 1, 0, main.PI*2);
+        curve = main.sin(angle)/4 ;
+        this.transform.scale.set(this.firstScale.x + (curve > 0 ? curve : -curve), this.firstScale.y + (curve > 0 ? curve : -curve));
+        this.shadow.offset.set(1 + (curve > 0 ? curve/2 : -curve/2), 1 + (curve > 0 ? curve/2 : -curve/2));
         this.transform.position.add(p5.Vector.fromAngle(this.transform.rotation).mult(this.time.deltaTime*100));
         if(this.timer <= 0){
           this.setState(this.states.WANDERING.DECIDING);

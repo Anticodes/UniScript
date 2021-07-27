@@ -14,11 +14,11 @@ class ButtonBar extends UIObject {
         super.addChild(gameObject);
     }
 
-    start(){
+    start() {
         let len = this.childs.length;
-        let off = -Math.ceil(-len/2);
-        for(let i = Math.ceil(-len/2); i < Math.ceil(len/2); i++){
-            this.childs[i + off].transform.position.set(120*i + (len % 2 === 0 ? 60 : 0), 0);
+        let off = -Math.ceil(-len / 2);
+        for (let i = Math.ceil(-len / 2); i < Math.ceil(len / 2); i++) {
+            this.childs[i + off].transform.position.set(120 * i + (len % 2 === 0 ? 60 : 0), 0);
         }
     }
 
@@ -38,19 +38,22 @@ class ButtonBar extends UIObject {
         main.pop();
     }
 
-    mPress(){
-      let index = this.childs.findIndex(button => button.mPress());
-      this.selectedButton = index > -1 ? index : this.selectedButton;
-      let pos = this.getParentPositions();
-      let sca = this.transform.scale;
-      if (pos.x - sca.x * 10 < this.input.mouse.x &&
-        pos.x + sca.x * 10 > this.input.mouse.x &&
-        pos.y - sca.y * 10 < this.input.mouse.y &&
-        pos.y + sca.y * 10 > this.input.mouse.y) {
-        return true;
-      }
-      return false;
+    mPress() {
+        let index = this.childs.findIndex(button => button.mPress());
+        console.log(index);
+        this.selectedButton = index > -1 ? index : this.selectedButton;
+        let pos = this.getParentPositions();
+        let sca = this.transform.scale;
+        if (pos.x - sca.x * 10 < this.input.mouse.x &&
+            pos.x + sca.x * 10 > this.input.mouse.x &&
+            pos.y - sca.y * 10 < this.input.mouse.y &&
+            pos.y + sca.y * 10 > this.input.mouse.y) {
+            return true;
+        }
+        return false;
     }
 
-    mRel(){}
+    mRel() {
+        this.childs.findIndex(button => button.mRel());
+    }
 }
