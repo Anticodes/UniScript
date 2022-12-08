@@ -13,6 +13,7 @@ var Input = (function() {
     }
   
     mPress() {
+      this.update();
       let found = this.elements.find(element => element.mPress());
       this.pressing = (found == null);
     }
@@ -21,6 +22,7 @@ var Input = (function() {
     }
   
     mRel() {
+      this.update();
       this.pressing = false;
       this.elements.forEach(element => element.mRel())
     }

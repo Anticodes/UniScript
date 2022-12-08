@@ -1,11 +1,11 @@
-class ButtonBar extends UIObject {
+class ButtonBar extends GameObject {
 
     selectedColor = null;
     input = Input.getInstance();
 
-    constructor({ name, children, position, scale, rotation, backgroundColor, selectedColor } = {}) {
-        super({ name: name, children: children, position: position, scale: scale, rotation: rotation });
-        this.addComponent(new QuadRenderer({ color: backgroundColor || main.color(255, 128) }));
+    constructor({ name, children, position, size, rotation, backgroundColor, selectedColor } = {}) {
+        super({ name, children, transform: new UITransform({ position, size, rotation }) });
+        this.addComponent(new UIRenderer({ color: backgroundColor || main.color(255, 128) }));
         this.selectedColor = selectedColor || main.color(200, 100, 100);
     }
 
@@ -25,16 +25,15 @@ class ButtonBar extends UIObject {
     update() {
         super.update();
         if (this.selectedButton == null) return;
-        let selected = this.childs[this.selectedButton].getComponent("QuadRenderer");
+        let selected = this.childs[this.selectedButton].getComponent("UIRenderer");
         let pp = this.childs[this.selectedButton].getParentPositions();
         let tf = this.childs[this.selectedButton].transform;
         main.push()
         main.translate(pp.x, pp.y);
         main.rotate(tf.rotation);
-        main.scale(10, 10);
         main.stroke(this.selectedColor);
         main.fill(0, 0);
-        main.rect(0, 0, tf.scale.x, tf.scale.y, selected.border[0], selected.border[1], selected.border[2], selected.border[3]);
+        main.rect(0, 0, tf.size.x, tf.size.y, selected.border[0], selected.border[1], selected.border[2], selected.border[3]);
         main.pop();
     }
 
@@ -43,11 +42,11 @@ class ButtonBar extends UIObject {
         console.log(index);
         this.selectedButton = index > -1 ? index : this.selectedButton;
         let pos = this.getParentPositions();
-        let sca = this.transform.scale;
-        if (pos.x - sca.x * 10 < this.input.mouse.x &&
-            pos.x + sca.x * 10 > this.input.mouse.x &&
-            pos.y - sca.y * 10 < this.input.mouse.y &&
-            pos.y + sca.y * 10 > this.input.mouse.y) {
+        let size = this.transform.size;
+        if (pos.x - size.x / 2 < this.input.mouse.x &&
+            pos.x + size.x / 2 > this.input.mouse.x &&
+            pos.y - size.y / 2 < this.input.mouse.y &&
+            pos.y + size.y / 2 > this.input.mouse.y) {
             return true;
         }
         return false;

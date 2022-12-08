@@ -6,7 +6,7 @@ class Renderer extends Component{
         main.push();
         main.translate(pp.x, pp.y);
         main.rotate(tf.rotation);
-        main.scale(tf.scale.x, tf.scale.y);
+        if(tf.scale) main.scale(tf.scale.x, tf.scale.y);
         this.update();
         main.pop();
     }

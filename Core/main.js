@@ -16,7 +16,7 @@ const main = new p5((p) => {
     p.noStroke();
     if (settings.isTransformAnchorCenter) {
       p.rectMode(p.CENTER);
-      p.textAlign(p.CENTER);
+      p.textAlign(p.CENTER, p.CENTER);
     }
     this.activeScene.loadScene();
   }

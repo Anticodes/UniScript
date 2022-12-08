@@ -7,7 +7,7 @@ class GameObject{
   components;
   
   
-  constructor({name, children, position, scale, rotation}={}){
+  constructor({ name, children, transform }={}){
     this.components = [];
     this.childs = [];
     children && children.forEach(child => {
@@ -15,7 +15,7 @@ class GameObject{
     });
     this.name = name;
     this.parent = null;
-    this.transform = new Transform({position: position, scale: scale, rotation: rotation});
+    this.transform = transform || new Transform({position: main.createVector(0, 0), scale: main.createVector(1, 1), rotation: main.createVector(0, 0)});
     this.addComponent(this.transform);
   }
   

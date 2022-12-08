@@ -1,7 +1,7 @@
-class Text extends UIObject {
+class Text extends GameObject {
 
-    constructor({name, children, position, scale, rotation, text, textColor}={}){
-        super({name: name, children: children, position: position, scale: scale, rotation: rotation});
-        this.addComponent(new TextRenderer({ text: text, color: textColor || main.color(0), }));
+    constructor({name, children, position, size, rotation, text, textColor}={}){
+        super({name, children, transform: new UITransform({ position, size, rotation }) });
+        this.addComponent(new TextRenderer({ text, color: textColor || main.color(0), }));
     }
 }

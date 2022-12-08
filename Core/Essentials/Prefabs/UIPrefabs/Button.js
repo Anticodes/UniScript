@@ -1,17 +1,17 @@
-class Button extends UIObject {
+class Button extends GameObject {
 
     pressing = false;
     input = Input.getInstance();
     callback = null;
 
-    constructor({ name, children, position, scale, rotation, text, callback, backgroundColor, textColor, border } = {}) {
-        super({ name: name, children: children, position: position, scale: scale, rotation: rotation });
-        this.addComponent(new QuadRenderer({ color: backgroundColor || main.color(200), border: border }));
+    constructor({ name, children, position, size, rotation, text, callback, backgroundColor, textColor, border } = {}) {
+        super({ name, children, transform: new UITransform({ position, size, rotation }) });
+        this.addComponent(new UIRenderer({ color: backgroundColor || main.color(200), border }));
         this.addChild(new Text({
             name: "Button Text",
-            position: position,
-            text: text,
             color: textColor,
+            position,
+            text,
         }));
         this.callback = callback;
     }
@@ -22,11 +22,11 @@ class Button extends UIObject {
 
     mPress() {
         let pos = this.getParentPositions();
-        let sca = this.transform.scale;
-        if (pos.x - sca.x * 5 < this.input.mouse.x &&
-            pos.x + sca.x * 5 > this.input.mouse.x &&
-            pos.y - sca.y * 5 < this.input.mouse.y &&
-            pos.y + sca.y * 5 > this.input.mouse.y) {
+        let size = this.transform.size;
+        if (pos.x - size.x / 2 < this.input.mouse.x &&
+            pos.x + size.x / 2 > this.input.mouse.x &&
+            pos.y - size.y / 2 < this.input.mouse.y &&
+            pos.y + size.y / 2 > this.input.mouse.y) {
             this.pressing = true;
             if (this.callback != null) this.callback();
         }

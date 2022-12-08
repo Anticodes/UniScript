@@ -8,38 +8,38 @@ class FarmScene extends Scene {
     this.mainCamera.addComponent(new AnimalSpawner());
     this.addUIObject(new Text({
       name: "Info Text",
-      position: main.createVector(settings.width / 2, 50),
-      text: "Tavşan eklemek için herhangi bir yere tıkla!",
+      position: main.createVector(settings.width / 2, 40),
+      text: "Hayvan eklemek için herhangi bir yere tıkla!",
     }));
     this.addUIObject(input.addElement(
       new ButtonBar({
         name: "Spawn Button Bar",
         position: main.createVector(settings.width / 2, settings.height - 50),
-        scale: main.createVector(40, 10),
+        size: main.createVector(400, 100),
         backgroundColor: main.color(0, 10),
         children: [
           new Button({
             name: "Bunny Button",
-            scale: main.createVector(10, 5),
+            size: main.createVector(100, 50),
             text: "🐰 Tavşan",
             border: [
-              3, 3, 3, 3,
+              30, 30, 30, 30,
             ],
           }),
           new Button({
             name: "Dog Button",
-            scale: main.createVector(10, 5),
+            size: main.createVector(100, 50),
             text: "🐶 Köpek",
             border: [
-              3, 3, 3, 3,
+              30, 30, 30, 30,
             ],
           }),
           new Button({
             name: "Cat Button",
-            scale: main.createVector(10, 5),
+            size: main.createVector(100, 50),
             text: "🐱 Kedi",
             border: [
-              3, 3, 3, 3,
+              30, 30, 30, 30,
             ],
           }),
         ]
