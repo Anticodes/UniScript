@@ -3,8 +3,11 @@ import Input from "./Essentials/Input";
 import Settings from "../Settings";
 import Time from "./Essentials/Time";
 
-const main = new p5((p: any) => {
+let main: any;
+
+new p5((p: any) => {
   p.disableFriendlyErrors = true;
+  main = p;
 
   p.setup = () => {
     Input.mouse = p.createVector(0, 0);
@@ -25,22 +28,7 @@ const main = new p5((p: any) => {
   p.draw = () => {
     Input.update(p.mouseX, p.mouseY);
     Time.update(p.millis());
-    if (p.activeScene.mainCamera) {
-      p.translate(
-        p.activeScene.mainCamera.transform.position.x,
-        p.activeScene.mainCamera.transform.position.y
-      );
-      p.activeScene.updateScene();
-    } else {
-      p.background(0);
-      p.fill(255);
-      p.textSize(34);
-      p.text(
-        "No main camera set on the active scene",
-        Settings.width / 2,
-        Settings.height / 2
-      );
-    }
+    p.activeScene.updateScene();
   };
 
   p.mousePressed = () => {

@@ -12,8 +12,8 @@ class BunnyPrefab extends GameObject {
       children,
       transform: new Transform({ position, scale, rotation }),
     });
-    this.addComponent(new BunnyShadowRenderer(main.color(0, 128)));
-    this.addComponent(new BunnyRenderer());
+    this.addComponent(new BunnyShadowRenderer({ color: main.color(0, 128) }));
+    this.addComponent(new BunnyRenderer({}));
     this.addComponent(new BunnyController());
   }
 }

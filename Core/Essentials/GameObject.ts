@@ -7,6 +7,7 @@ interface GameObjectConstructor {
   name: string;
   children?: GameObject[];
   transform?: Transform | UITransform;
+  components?: Component[];
 }
 
 class GameObject {
@@ -20,6 +21,7 @@ class GameObject {
     name,
     children = [],
     transform = new Transform({}),
+    components = []
   }: GameObjectConstructor) {
     children.forEach((child: GameObject) => {
       this.addChild(child);
@@ -27,6 +29,9 @@ class GameObject {
     this.name = name;
     this.transform = transform;
     this.addComponent(this.transform);
+    for (let component of components) {
+      this.addComponent(component);
+    }
   }
 
   start() {

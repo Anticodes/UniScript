@@ -8,51 +8,63 @@ import CatPrefab from "../Prefabs/CatPrefab";
 import DogPrefab from "../Prefabs/DogPrefab";
 
 class AnimalSpawner extends Component {
-  spawnerBar: ButtonBar;
+    spawnerBar: ButtonBar;
 
-  start() {
-    this.spawnerBar = Settings.activeScene.findUIObjectByName(
-      "Spawn Button Bar"
-    ) as ButtonBar;
-  }
-
-  update() {
-    if (Input.pressing) {
-      switch (this.spawnerBar.selectedButton) {
-        case 0:
-          Settings.activeScene.instantiate(
-            new BunnyPrefab({
-              name: "Bunny",
-              position: main.createVector(Input.mouse.x, Input.mouse.y),
-              scale: main.createVector(5, 5),
-              rotation: Math.random() * main.TWO_PI,
-            })
-          );
-          break;
-        case 1:
-          Settings.activeScene.instantiate(
-            new DogPrefab({
-              name: "Dog",
-              position: main.createVector(Input.mouse.x, Input.mouse.y),
-              scale: main.createVector(16, 5),
-              rotation: Math.random() * main.TWO_PI,
-            })
-          );
-          break;
-        case 2:
-          Settings.activeScene.instantiate(
-            new CatPrefab({
-              name: "Cat",
-              position: main.createVector(Input.mouse.x, Input.mouse.y),
-              scale: main.createVector(9, 3),
-              rotation: Math.random() * main.TWO_PI,
-            })
-          );
-          break;
-      }
-      Input.pressing = false;
+    start() {
+        this.spawnerBar = Settings.activeScene.findUIObjectByName(
+            "Spawn Button Bar"
+        ) as ButtonBar;
     }
-  }
+
+    update() {
+        if (!Input.pressing) return;
+        let mainCameraPos = Settings.activeScene.mainCamera.transform.position;
+        switch (this.spawnerBar.selectedButton) {
+            case 0:
+                this.spawnBunny(mainCameraPos);
+                break;
+            case 1:
+                this.spawnDog(mainCameraPos);
+                break;
+            case 2:
+                this.spawnCat(mainCameraPos);
+                break;
+        }
+        Input.pressing = false;
+    }
+
+    private spawnCat(mainCameraPos: any) {
+        Settings.activeScene.instantiate(
+            new CatPrefab({
+                name: "Cat",
+                position: main.createVector(Input.mouse.x - mainCameraPos.x, Input.mouse.y - mainCameraPos.y),
+                scale: main.createVector(9, 3),
+                rotation: Math.random() * main.TWO_PI,
+            })
+        );
+    }
+
+    private spawnDog(mainCameraPos: any) {
+        Settings.activeScene.instantiate(
+            new DogPrefab({
+                name: "Dog",
+                position: main.createVector(Input.mouse.x - mainCameraPos.x, Input.mouse.y - mainCameraPos.y),
+                scale: main.createVector(16, 5),
+                rotation: Math.random() * main.TWO_PI,
+            })
+        );
+    }
+
+    private spawnBunny(mainCameraPos: any) {
+        Settings.activeScene.instantiate(
+            new BunnyPrefab({
+                name: "Bunny",
+                position: main.createVector(Input.mouse.x - mainCameraPos.x, Input.mouse.y - mainCameraPos.y),
+                scale: main.createVector(5, 5),
+                rotation: Math.random() * main.TWO_PI,
+            })
+        );
+    }
 }
 
 export default AnimalSpawner;

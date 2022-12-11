@@ -1,5 +1,5 @@
 import Component from "../Component";
-import { p5 } from "../../../main";
+import { main, p5 } from "../../../main";
 
 class UITransform extends Component {
   position: p5.vector;
@@ -7,9 +7,13 @@ class UITransform extends Component {
   rotation: number;
 
   constructor({
-    position = p5.createVector(0, 0),
-    size = p5.createVector(10, 10),
+    position = main.createVector(0, 0),
+    size = main.createVector(10, 10),
     rotation = 0.0,
+  }: {
+    position?: p5.Vector,
+    size?: p5.Vector,
+    rotation?: number
   }) {
     super();
     this.position = position;

@@ -4,7 +4,7 @@ import { main, p5 } from "../../main";
 class CircleRenderer extends Renderer {
   color: p5.Color;
 
-  constructor(color = main.color(200, 200, 200)) {
+  constructor({ color }: { color: p5.Color }) {
     super();
     this.color = color;
   }

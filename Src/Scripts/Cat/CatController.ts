@@ -59,10 +59,10 @@ class CatController extends Component {
         break;
       case this.states.WANDERING.DECIDING:
         if (
-          this.transform.position.x < 150 ||
-          this.transform.position.x > main.windowWidth - 150 ||
-          this.transform.position.y > main.windowHeight - 150 ||
-          this.transform.position.y < 150
+          this.transform.position.x < -main.windowWidth / 2 + 150 ||
+          this.transform.position.x > main.windowWidth / 2 - 150 ||
+          this.transform.position.y > main.windowHeight / 2 - 150 ||
+          this.transform.position.y < -main.windowHeight / 2 + 150
         ) {
           this.setState(this.states.WANDERING.RETURNING);
           this.turnCompletion = main.PI;

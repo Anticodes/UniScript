@@ -1,10 +1,10 @@
 import UIRenderer from "./UIComponents/UIRenderer";
-import { main } from "../../main";
+import { main, p5 } from "../../main";
 
 class TextRenderer extends UIRenderer {
   text: string;
 
-  constructor({ text = "", color = main.color(200, 200, 200) }) {
+  constructor({ text, color }: { text: string, color: p5.Color }) {
     super({ color });
     this.text = text;
   }

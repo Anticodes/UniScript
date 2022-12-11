@@ -1,14 +1,13 @@
 import QuadRenderer from "../../../Core/Essentials/Components/QuadRenderer";
 import Transform from "../../../Core/Essentials/Components/Transform";
-import { main } from "../../../Core/main";
+import { main, p5 } from "../../../Core/main";
 
 class CatRenderer extends QuadRenderer {
   tailAngle = 0;
   transform: Transform;
 
-  constructor(color) {
-    super(color);
-    this.border = [3, 6, 6, 3];
+  constructor({ color }: { color: p5.Color }) {
+    super({ color, border: [3, 6, 6, 3] });
   }
 
   update() {

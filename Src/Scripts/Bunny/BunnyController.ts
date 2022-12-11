@@ -57,10 +57,10 @@ class BunnyController extends Component {
         break;
       case this.states.WANDERING.DECIDING:
         if (
-          this.transform.position.x < 125 ||
-          this.transform.position.x > main.windowWidth - 125 ||
-          this.transform.position.y > main.windowHeight - 125 ||
-          this.transform.position.y < 125
+          this.transform.position.x < -main.windowWidth / 2 + 150 ||
+          this.transform.position.x > main.windowWidth / 2 - 150 ||
+          this.transform.position.y > main.windowHeight / 2 - 150 ||
+          this.transform.position.y < -main.windowHeight / 2 + 150
         ) {
           this.setState(this.states.WANDERING.RETURNING);
           this.turnCompletion = main.PI;

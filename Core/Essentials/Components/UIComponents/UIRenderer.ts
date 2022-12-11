@@ -7,7 +7,7 @@ class UIRenderer extends Renderer {
   border: number[];
   transform: UITransform;
 
-  constructor({ color = main.color(200, 200, 200), border = [0, 0, 0, 0] }) {
+  constructor({ color, border = [0, 0, 0, 0] }: { color: p5.Color, border?: number[] }) {
     super();
     this.color = color;
     this.border = border;

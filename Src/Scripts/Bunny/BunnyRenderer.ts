@@ -2,8 +2,8 @@ import CircleRenderer from "../../../Core/Essentials/Components/CircleRenderer";
 import { main, p5 } from "../../../Core/main";
 
 class BunnyRenderer extends CircleRenderer {
-  constructor(color: p5.Color = undefined) {
-    super(color);
+  constructor({ color = main.color(200) }) {
+    super({ color });
   }
 
   update() {

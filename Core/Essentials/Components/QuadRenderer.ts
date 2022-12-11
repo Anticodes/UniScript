@@ -5,7 +5,7 @@ class QuadRenderer extends Renderer {
   color: p5.Color;
   border: number[];
 
-  constructor({ color = main.color(200, 200, 200), border = [0, 0, 0, 0] }) {
+  constructor({ color, border = [0, 0, 0, 0] }: { color: p5.Color, border?: number[] }) {
     super();
     this.color = color;
     this.border = border;
